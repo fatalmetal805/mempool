@@ -1,0 +1,11 @@
+// backend/src/api/services/acceleration.ts and stratum.ts
+// before:
+this.ws = new WebSocket(this.websocketPath);
+
+// suggested:
+this.ws = new WebSocket(this.websocketPath, {
+  // small sensible limits for client-side buffering
+  maxPayload: websocketHandler?.MAX_MESSAGE_SIZE ?? 50_000,
+  maxBufferedChunks: 200,
+  maxFragments: 1000,
+});
